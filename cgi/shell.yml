@@ -1,0 +1,32 @@
+
+---
+- hosts: localhost
+  tasks:
+  - name: install docker
+    pip:
+      name: docker-py
+  - name: start service
+    service:
+      name: docker
+      state: started
+
+
+  - name: container launching
+    docker_container:
+      name: yyyy
+      image: paas_new
+      interactive: true
+      hostname: localhost
+      volumes:
+        - /usr/local/lib64/python3.6/site-packages
+      tty: true
+      state: started
+      privileged: true
+      command: "/bin/bash"     
+      exposed_ports: 4203
+      ports:
+       - "4444:4203"
+  - name: shell provide
+    shell: "docker exec yyyy /usr/sbin/shellinaboxd -t -s /:SSH:0.0.0.0 -p 4203 &"
+...
+
