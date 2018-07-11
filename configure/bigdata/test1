@@ -1,6 +1,0 @@
-#!/usr/bin/python2
-
-import os
-
-
-raw_input()
